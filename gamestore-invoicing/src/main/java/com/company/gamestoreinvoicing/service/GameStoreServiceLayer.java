@@ -1,5 +1,8 @@
 package com.company.gamestoreinvoicing.service;
 
+import com.company.gamestoreinvoicing.util.Console;
+import com.company.gamestoreinvoicing.util.Game;
+import com.company.gamestoreinvoicing.util.TShirt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
