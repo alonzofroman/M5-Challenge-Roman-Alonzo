@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
-@FeignClient(name="gamestore-invoice")
+@FeignClient(name="game-store-invoice")
 public interface catalogueClient {
 
     @RequestMapping(value="/game/{id}", method = RequestMethod.GET)
