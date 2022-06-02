@@ -3,6 +3,7 @@ package com.company.gamestoreinvoicing.service;
 import com.company.gamestoreinvoicing.util.Console;
 import com.company.gamestoreinvoicing.util.Game;
 import com.company.gamestoreinvoicing.util.TShirt;
+import com.company.gamestoreinvoicing.util.catalogueClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,13 @@ public class GameStoreServiceLayer {
     private final String CONSOLE_ITEM_TYPE = "Console";
     private final String TSHIRT_ITEM_TYPE = "T-Shirt";
 
+
+
+    @Autowired
+    catalogueClient catalogueClient;
+
+
+
     InvoiceRepository invoiceRepo;
     TaxRepository taxRepo;
     ProcessingFeeRepository processingFeeRepo;
@@ -36,6 +44,8 @@ public class GameStoreServiceLayer {
         this.taxRepo = taxRepo;
         this.processingFeeRepo = processingFeeRepo;
     }
+
+
 
     public InvoiceViewModel createInvoice(InvoiceViewModel invoiceViewModel) {
 
@@ -66,7 +76,7 @@ public class GameStoreServiceLayer {
         //Check if we have enough quantity
         if (invoiceViewModel.getItemType().equals(CONSOLE_ITEM_TYPE)) {
             Console tempCon = null;
-            Optional<Console> returnVal = consoleRepo.findById(invoiceViewModel.getItemId());
+            Optional<Console> returnVal = catalogueClient.getConsoleById(invoiceViewModel.getItemId());
 
             if (returnVal.isPresent()) {
                 tempCon = returnVal.get();
@@ -82,7 +92,7 @@ public class GameStoreServiceLayer {
 
         } else if (invoiceViewModel.getItemType().equals(GAME_ITEM_TYPE)) {
             Game tempGame = null;
-            Optional<Game> returnVal = gameRepo.findById(invoiceViewModel.getItemId());
+            Optional<Game> returnVal = catalogueClient.getGameById(invoiceViewModel.getItemId());
 
             if (returnVal.isPresent()) {
                 tempGame = returnVal.get();
@@ -97,7 +107,7 @@ public class GameStoreServiceLayer {
 
         } else if (invoiceViewModel.getItemType().equals(TSHIRT_ITEM_TYPE)) {
             TShirt tempTShirt = null;
-            Optional<TShirt> returnVal = tShirtRepo.findById(invoiceViewModel.getItemId());
+            Optional<TShirt> returnVal = catalogueClient.getTShirtById(invoiceViewModel.getItemId());
 
             if (returnVal.isPresent()) {
                 tempTShirt = returnVal.get();
